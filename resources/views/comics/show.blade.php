@@ -13,9 +13,6 @@
                 <p class="card-text">Type: {{ $comic->type }}</p>
                 <p class="card-text">Sale Date: {{ $comic->sale_date }}</p>
                 <p class="card-text"> Price: {{ $comic->price }}</p>
-                <button type="button" class="btn btn-dark">
-                    <a href="/comics">Home</a>
-                </button>
             </div>
         </div>
     </div>
