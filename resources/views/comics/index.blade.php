@@ -21,12 +21,21 @@
                                     </a>
                                 </button>
                                 <button type="button" class="btn btn-warning">
-                                    <i class="fa-solid fa-pen"></i>
+                                    <a href="{{ route('comics.edit', $comic->id) }}">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
                                 </button>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                <form action="{{ route('comics.destroy', $comic->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="sumbmit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                </form>
                             </div>
+
+
                         </div>
                     @endforeach
                 </div>
