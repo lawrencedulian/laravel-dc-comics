@@ -2,25 +2,30 @@
 
 @section('content')
     <div class="container">
-        <h1>Comics</h1>
-
-        <section>
-            <div class="container text-center mt-4">
-                <h1>Tutti i comics</h1>
-                <a href="{{ route('comics.create') }}" class="btn btn-primary">Aggiungi Comic</a>
-                <div class="row row-cols-4 g-3">
+        <section class="books">
+            <div class="container d-flex flex-column align-items-center justify-content-center p-5">
+                <h1>Comics</h1>
+                <div class="row row-cols-6 g-5">
                     @foreach ($comics as $comic)
                         <div class="col">
                             <div class="card">
-                                <img src="{{ $comic->thumb }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $comic->title }}</h5>
-                                    <p class="card-text">Serie: {{ $comic->series }}</p>
-                                    <p class="card-text">Tipo: {{ $comic->type }}</p>
-
-                                    <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-primary">Vedi
-                                        dettagli</a>
+                                <img src="{{ $comic['thumb'] }}" alt="">
+                                <div class="text mt-2">
+                                    <h5>{{ $comic['title'] }}</h5>
                                 </div>
+                            </div>
+                            <div class="btn-group d-flex aling-items-center mt-2" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-success">
+                                    <a href="{{ route('comics.show', $comic->id) }} ">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                </button>
+                                <button type="button" class="btn btn-warning">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </div>
                         </div>
                     @endforeach
