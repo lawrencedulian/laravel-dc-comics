@@ -1,1 +1,22 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+a {
+    color: white;
+}
+
+img {
+    width: 100%;
+}
+
+.container {
+    height: 100vh;
+}
+
+.card {
+    height: 300px;
+
+    h5 {
+        font-size: .8rem;
+    }
+}
