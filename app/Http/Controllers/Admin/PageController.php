@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use PHPUnit\Util\Xml\ValidationResult;
 
 class PageController extends Controller
 {
@@ -37,7 +39,8 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+
+        $data = $this->validator($request->all());
         $comic = new Comic();
         $comic->fill($data);
         // $comic->title = $data['title'];
@@ -84,6 +87,15 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|min:5',
+            'description' => 'required',
+            'thumb' => 'required',
+            'price' => 'required|min:2.99',
+            'series' => 'required|min:5|max:100',
+            'sale_date' => 'required',
+            'type' => 'required|max:100'
+        ]);
         $comic = Comic::findOrFail($id);
         $data = $request->all();
         $comic->update($data);
@@ -100,5 +112,30 @@ class PageController extends Controller
     {
         $comic->delete();
         return redirect()->route('comics.index');
+    }
+
+    public function validator($data)
+    {
+        $validationResult = Validator::make($data, [
+            'title' => 'required|min:5',
+            'description' => 'required',
+            'thumb' => 'required',
+            'price' => 'required|min:2.99',
+            'series' => 'required|min:5|max:100',
+            'sale_date' => 'required',
+            'type' => 'required|max:100'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve avere almeno :min caratteri',
+            'description.required' => 'La descrizione è obbligatoria',
+            'thumb.required' => 'L\'immagine è obbligatoria',
+            'price.required' => 'Il prezzo è obbligatorio',
+            'series.required' => 'Il nome della serie è obbligatorio',
+            'series.min' => 'Il nome della serie deve avere almeno :min caratteri',
+            'series.max' => 'Il nome della serie ha un massimo di :max caratteri',
+            'sale_date.required' => 'La data di vendità è obbligatoria',
+            'type' => 'Il tipo è obbligatorio'
+        ])->validate();
+        return $validationResult;
     }
 }
